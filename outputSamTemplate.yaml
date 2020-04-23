@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CD Demo Lambda
+Resources:
+  CDDemoLambda:
+    Properties:
+      CodeUri: s3://sandip-sam-lambda-pipeline/579ab8805379eba12089600f74c058e8
+      Description: Lambda function for CD Demo
+      Environment:
+        Variables:
+          REGION: ap-southeast-2
+      Events:
+        getAZsAPI:
+          Properties:
+            Method: get
+            Path: /getazs
+          Type: Api
+      Handler: lambda_function.lambda_handler
+      MemorySize: 128
+      Role: arn:aws:iam::093833860903:role/MyLambdaRole
+      Runtime: python3.6
+      Timeout: 30
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
